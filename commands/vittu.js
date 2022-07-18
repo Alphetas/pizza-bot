@@ -32,7 +32,6 @@ module.exports = {
         await translate(lastMessage.content, {to: language}).then( res => {
             translatedText = res.text;
         });
-        console.log(translatedText)
         lastMessage.reply({
             content: lastMessage.author.username + " said: " + translatedText,
             allowedMentions: {
