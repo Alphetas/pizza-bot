@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { translate } = require('free-translate');
+const translate = require('@vitalets/google-translate-api');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -28,7 +28,11 @@ module.exports = {
             language = 'en';
         }
         interaction.reply({ content: 'Translating...'});
-        const translatedText = await translate(lastMessage.content, {to: language});
+        translatedText = "";
+        await translate(lastMessage.content, {to: language}).then( res => {
+            translatedText = res.text;
+        });
+        console.log(translatedText)
         lastMessage.reply({
             content: lastMessage.author.username + " said: " + translatedText,
             allowedMentions: {
